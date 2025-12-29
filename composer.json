@@ -21,7 +21,8 @@
         "laravel/tinker": "^2.8",
         "spatie/laravel-permission": "^5.11",
         "ext-curl": "*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-pdo_mysql": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

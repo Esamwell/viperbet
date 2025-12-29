@@ -21,12 +21,16 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        if (DB::connection()->getDatabaseName()) {
-            if (Schema::hasTable('settings')) {
-                $setting = \Helper::getSetting();
-                config()->set('setting', $setting);
+        try {
+            if (DB::connection()->getDatabaseName()) {
+                if (Schema::hasTable('settings')) {
+                    $setting = \Helper::getSetting();
+                    config()->set('setting', $setting);
+                }
             }
+        } catch (\Exception $e) {
+            // Silently fail during build/deployment when database is not available
+            // This allows config:cache to work during build phase
         }
     }
 }
