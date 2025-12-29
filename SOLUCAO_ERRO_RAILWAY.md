@@ -14,12 +14,9 @@ Isso acontece porque o Railway (usando Nixpacks) não conseguiu encontrar ou ins
 Foram criados os seguintes arquivos de configuração:
 
 ### 1. `nixpacks.toml`
-Este arquivo especifica explicitamente a versão do PHP para o Nixpacks usar PHP 8.2 (que é compatível com Laravel 10 e requer PHP ^8.1):
+Este arquivo configura o build e o comando de inicialização. O Nixpacks detecta automaticamente o PHP através do `composer.json` e do arquivo `.php-version`:
 
 ```toml
-[phases.setup]
-nixPkgs = { php = "php82" }
-
 [phases.install]
 cmds = [
   "composer install --no-dev --optimize-autoloader --no-interaction",
@@ -29,6 +26,8 @@ cmds = [
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
 ```
+
+**Nota:** Removemos a especificação explícita de `nixPkgs` porque estava causando erro de sintaxe. O Nixpacks detecta automaticamente o PHP necessário através do `composer.json`.
 
 ### 2. `.php-version`
 Arquivo que especifica a versão do PHP:
