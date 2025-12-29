@@ -74,3 +74,4 @@ Write-Host "  6. npm run dev (em outro terminal)" -ForegroundColor White
 Write-Host ""
 
 
+

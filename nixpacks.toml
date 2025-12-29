@@ -1,14 +1,23 @@
-[variables]
-APP_ENV = "production"
-DB_CONNECTION = "sqlite"
-DB_DATABASE = ":memory:"
+[phases.setup]
+nixPkgs = [
+    "php82.withExtensions (pe: pe.enabled ++ [pe.all.curl])",
+    "nginx",
+    "libmysqlclient",
+    "php82Packages.composer",
+    "nodejs_18",
+    "npm-9_x",
+    "php82Extensions.curl"
+]
 
 [phases.install]
 cmds = [
-  "composer install --no-dev --optimize-autoloader --no-interaction --no-scripts",
-  "php artisan package:discover --ansi || true",
-  "php artisan key:generate --force || true"
+    "composer install --no-dev --optimize-autoloader --no-interaction --no-scripts",
+    "php artisan package:discover --ansi || true",
+    "php artisan key:generate --force || true"
 ]
+
+[phases.build]
+cmds = ["npm run build"]
 
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
