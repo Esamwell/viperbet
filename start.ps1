@@ -36,3 +36,4 @@ Start-Sleep -Seconds 2
 # Iniciar servidor Laravel (este comando mantém o terminal aberto)
 php artisan serve
 
+

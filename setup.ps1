@@ -73,3 +73,4 @@ Write-Host "  5. php artisan serve (em um terminal)" -ForegroundColor White
 Write-Host "  6. npm run dev (em outro terminal)" -ForegroundColor White
 Write-Host ""
 
+

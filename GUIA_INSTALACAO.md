@@ -179,3 +179,4 @@ Abra seu navegador e acesse: `http://localhost:8000`
 - **Banco de dados**: O arquivo SQL está em `sql/viper.sql`
 - **Configurações**: Arquivos de configuração estão em `config/`
 
+
