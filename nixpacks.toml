@@ -6,7 +6,8 @@ nixPkgs = [
     "php82Packages.composer",
     "nodejs_18",
     "npm-9_x",
-    "php82Extensions.curl"
+    "php82Extensions.curl",
+    "php82Extensions.intl"
 ]
 
 [phases.install]
