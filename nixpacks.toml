@@ -1,6 +1,12 @@
+[variables]
+APP_ENV = "production"
+DB_CONNECTION = "sqlite"
+DB_DATABASE = ":memory:"
+
 [phases.install]
 cmds = [
-  "composer update --no-dev --optimize-autoloader --no-interaction || composer install --no-dev --optimize-autoloader --no-interaction",
+  "composer install --no-dev --optimize-autoloader --no-interaction --no-scripts",
+  "php artisan package:discover --ansi || true",
   "php artisan key:generate --force || true"
 ]
 
