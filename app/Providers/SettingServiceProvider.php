@@ -22,15 +22,24 @@ class SettingServiceProvider extends ServiceProvider
     public function boot(): void
     {
         try {
-            if (DB::connection()->getDatabaseName()) {
-                if (Schema::hasTable('settings')) {
-                    $setting = \Helper::getSetting();
+            // Check if we can connect to the database
+            DB::connection()->getPdo();
+            
+            // Check if database name is available (connection is established)
+            $databaseName = DB::connection()->getDatabaseName();
+            
+            if ($databaseName && Schema::hasTable('settings')) {
+                $setting = \Helper::getSetting();
+                if ($setting) {
                     config()->set('setting', $setting);
                 }
             }
+        } catch (\PDOException $e) {
+            // Database connection not available - this is normal during build/deployment
+            // Silently fail to allow the application to boot
         } catch (\Exception $e) {
-            // Silently fail during build/deployment when database is not available
-            // This allows config:cache to work during build phase
+            // Any other exception - log but don't fail
+            // This allows the application to start even if settings can't be loaded
         }
     }
 }

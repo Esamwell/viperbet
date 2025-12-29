@@ -358,15 +358,22 @@ class Core
      */
     public static function getSetting()
     {
-        $setting = null;
-        if(Cache::has('setting')) {
-            $setting = Cache::get('setting');
-        }else{
-            $setting = Setting::first();
-            Cache::put('setting', $setting);
-        }
+        try {
+            $setting = null;
+            if(Cache::has('setting')) {
+                $setting = Cache::get('setting');
+            }else{
+                $setting = Setting::first();
+                if ($setting) {
+                    Cache::put('setting', $setting);
+                }
+            }
 
-        return $setting;
+            return $setting;
+        } catch (\Exception $e) {
+            // Return null if database is not available
+            return null;
+        }
     }
 
     /**
